@@ -8,6 +8,7 @@ import (
 	"github.com/zgwit/iot-master/v4/pkg/db"
 	"github.com/zgwit/iot-master/v4/pkg/log"
 	"github.com/zgwit/iot-master/v4/web/curd"
+	"github.com/zgwit/iot-master/v4/web/export"
 )
 
 // @Summary 查询客户端数量
@@ -168,7 +169,7 @@ func clientRouter(app *gin.RouterGroup) {
 
 	app.GET("/list", curd.ApiList[types.Client]())
 
-	app.POST("/create", curd.ApiCreateHook[types.Client](curd.GenerateRandomId[types.Client](8), func(value *types.Client) error {
+	app.POST("/create", curd.ApiCreateHook[types.Client](curd.GenerateID[types.Client](), func(value *types.Client) error {
 		return internal.LoadClient(value)
 	}))
 
@@ -245,8 +246,8 @@ func clientRouter(app *gin.RouterGroup) {
 		curd.OK(ctx, nil)
 	})
 
-	app.GET("/export", curd.ApiExport("client", "client"))
+	app.GET("/export", export.ApiExport("client", "client"))
 
-	app.POST("/import", curd.ApiImport("client"))
+	app.POST("/import", export.ApiImport("client"))
 
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/iot-master-contrib/gateway/internal"
 	"github.com/iot-master-contrib/gateway/types"
 	"github.com/zgwit/iot-master/v4/web/curd"
+	"github.com/zgwit/iot-master/v4/web/export"
 )
 
 // @Summary 查询连接数量
@@ -176,7 +177,7 @@ func linkRouter(app *gin.RouterGroup) {
 		curd.OK(ctx, nil)
 	})
 
-	app.GET("/export", curd.ApiExport("link", "link"))
-	app.POST("/import", curd.ApiImport("link"))
+	app.GET("/export", export.ApiExport("link", "link"))
+	app.POST("/import", export.ApiImport("link"))
 
 }

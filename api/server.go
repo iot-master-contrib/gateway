@@ -8,6 +8,7 @@ import (
 	"github.com/zgwit/iot-master/v4/pkg/db"
 	"github.com/zgwit/iot-master/v4/pkg/log"
 	"github.com/zgwit/iot-master/v4/web/curd"
+	"github.com/zgwit/iot-master/v4/web/export"
 )
 
 // @Summary 查询服务器数量
@@ -168,7 +169,7 @@ func serverRouter(app *gin.RouterGroup) {
 
 	app.GET("/list", curd.ApiList[types.Server]())
 
-	app.POST("/create", curd.ApiCreateHook[types.Server](curd.GenerateRandomId[types.Server](8), func(value *types.Server) error {
+	app.POST("/create", curd.ApiCreateHook[types.Server](curd.GenerateID[types.Server](), func(value *types.Server) error {
 		return internal.LoadServer(value)
 	}))
 
@@ -245,7 +246,7 @@ func serverRouter(app *gin.RouterGroup) {
 		curd.OK(ctx, nil)
 	})
 
-	app.GET("/export", curd.ApiExport("server", "server"))
-	app.POST("/import", curd.ApiImport("server"))
+	app.GET("/export", export.ApiExport("server", "server"))
+	app.POST("/import", export.ApiImport("server"))
 
 }

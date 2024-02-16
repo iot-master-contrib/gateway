@@ -8,6 +8,7 @@ import (
 	"github.com/zgwit/iot-master/v4/pkg/db"
 	"github.com/zgwit/iot-master/v4/pkg/log"
 	"github.com/zgwit/iot-master/v4/web/curd"
+	"github.com/zgwit/iot-master/v4/web/export"
 	"go.bug.st/serial"
 )
 
@@ -178,7 +179,7 @@ func serialRouter(app *gin.RouterGroup) {
 
 	app.GET("/list", curd.ApiList[types.Serial]())
 
-	app.POST("/create", curd.ApiCreateHook[types.Serial](curd.GenerateRandomId[types.Serial](8), func(value *types.Serial) error {
+	app.POST("/create", curd.ApiCreateHook[types.Serial](curd.GenerateID[types.Serial](), func(value *types.Serial) error {
 		return internal.LoadSerial(value)
 	}))
 
@@ -256,8 +257,8 @@ func serialRouter(app *gin.RouterGroup) {
 		curd.OK(ctx, nil)
 	})
 
-	app.GET("/export", curd.ApiExport("serial", "serial"))
-	app.POST("/import", curd.ApiImport("serial"))
+	app.GET("/export", export.ApiExport("serial", "serial"))
+	app.POST("/import", export.ApiImport("serial"))
 
 	app.GET("ports", func(ctx *gin.Context) {
 		list, err := serial.GetPortsList()
