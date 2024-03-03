@@ -1,102 +1,63 @@
-import { RequestService } from '../request.service';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { ParseTableQuery } from '../base/table';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {
+    ParamSearch, SmartTableButton, SmartTableColumn,
+    SmartTableComponent, SmartTableOperator, RequestService
+} from "iot-master-smart";
+
 @Component({
-  selector: 'app-serial',
-  templateUrl: './serial.component.html',
-  styleUrls: ['./serial.component.scss'],
+    selector: 'app-serial',
+    standalone: true,
+    imports: [
+        CommonModule,
+        SmartTableComponent,
+    ],
+    templateUrl: './serial.component.html',
+    styleUrls: ['./serial.component.scss'],
 })
 export class SerialComponent {
-  constructor(
-    private router: Router,
-    private rs: RequestService,
-    private msg: NzMessageService
-  ) {
-    this.load();
-  }
+    datum: any[] = [];
+    total = 0;
+    loading = false;
 
-  loading = true;
-  datum: any[] = [];
-  total = 1;
-  pageSize = 20;
-  pageIndex = 1;
-  query: any = {};
-  load() {
-    this.loading = true;
-    this.rs
-      .post('serial/search', this.query)
-      .subscribe((res) => {
-        this.datum = res.data;
-        this.total = res.total;
-      })
-      .add(() => {
-        this.loading = false;
-      });
-  }
+    buttons: SmartTableButton[] = [
+        {icon: "plus", text: "创建", link: () => `/serial/create`}
+    ];
 
-  delete(index: number, id: number) {
-    this.datum.splice(index, 1);
-    this.rs.get(`serial/${id}/delete`).subscribe((res) => {
-      this.msg.success('删除成功');
-      this.load();
-    });
-  }
-  status(num: number, id: any) {
-    if (num) {
-      this.rs.get(`serial/${id}/start`).subscribe((res) => {
-        this.msg.success(`已启动!`);
-        this.load();
-      });
+    columns: SmartTableColumn[] = [
+        {key: "id", sortable: true, text: "ID", keyword: true, link: (data) => `/serial/${data.id}`},
+        {key: "name", sortable: true, text: "名称", keyword: true},
+        {key: "port", sortable: true, text: "端口", keyword: true},
+        {key: "created", sortable: true, text: "创建时间", date: true},
+    ];
+
+    operators: SmartTableOperator[] = [
+        {icon: 'edit', title: '编辑', link: data => `/serial/${data.id}/edit`},
+        {
+            icon: 'delete', title: '删除', confirm: "确认删除？", action: data => {
+                this.rs.get(`serial/${data.id}/delete`).subscribe(res => this.refresh())
+            }
+        },
+    ];
+
+    constructor(private rs: RequestService) {
     }
-    else {
-      this.rs.get(`serial/${id}/stop`).subscribe((res) => {
-        this.msg.success(`已停止!`);
-        this.load();
-      });
+
+
+    query!: ParamSearch
+
+    refresh() {
+        this.search(this.query)
     }
-  }
-  add() {
-    this.router.navigateByUrl(`/admin/create/serial`);
-  }
-  edit(id: number, data: any) {
-    const path = `/admin/serial/edit/${id}`;
-    this.router.navigateByUrl(path);
-  }
-  onQuery($event: NzTableQueryParams) {
-    ParseTableQuery($event, this.query);
-    this.load();
-  }
-  pageIndexChange(pageIndex: number) {
-    this.query.skip = pageIndex - 1;
-  }
-  pageSizeChange(pageSize: number) {
-    this.query.limit = pageSize;
-  }
-  search(text: any) {
-    if (text)
-      this.query.filter = {
-        id: text,
-      };
-    else this.query = {};
-    this.load();
-  }
 
-  cancel() {
-    this.msg.info('取消删除');
-  }
+    search(query: ParamSearch) {
+        //console.log('onQuery', query)
+        this.query = query
+        this.loading = true
+        this.rs.post('serial/search', query).subscribe((res) => {
+            this.datum = res.data;
+            this.total = res.total;
+        }).add(() => this.loading = false);
+    }
 
-  open(id: string) {
-    this.router.navigateByUrl('/admin/serial/' + id);
-  }
-  handleToggleStatus(index: number, data: { disabled: boolean, id: number }) {
-    const { disabled, id } = data;
-    const url = disabled ? `serial/${id}/enable` : `serial/${id}/disable`;
-    this.rs.get(url).subscribe((res) => {
-      this.msg.success(`${disabled ? '启用' : '禁用'}成功!`);
-      this.load();
-    });
-  }
 }

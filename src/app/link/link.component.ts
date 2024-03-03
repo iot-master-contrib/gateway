@@ -1,87 +1,64 @@
-import { RequestService } from '../request.service';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { ParseTableQuery } from '../base/table';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {
+    ParamSearch, RequestService, SmartTableButton, SmartTableColumn,
+    SmartTableComponent, SmartTableOperator
+} from "iot-master-smart";
+
 @Component({
-  selector: 'app-link',
-  templateUrl: './link.component.html',
-  styleUrls: ['./link.component.scss'],
+    selector: 'app-link',
+  standalone: true,
+  imports: [
+    CommonModule,
+    SmartTableComponent,
+  ],
+    templateUrl: './link.component.html',
+    styleUrls: ['./link.component.scss'],
 })
 export class LinkComponent {
-  constructor(
-    private router: Router,
-    private rs: RequestService,
-    private msg: NzMessageService
-  ) {
-    this.load();
-  }
-
-  loading = true;
   datum: any[] = [];
-  total = 1;
-  pageSize = 20;
-  pageIndex = 1;
-  query: any = {};
-  load() {
-    this.loading = true;
-    this.rs
-      .post('link/search', this.query)
-      .subscribe((res) => {
-        this.datum = res.data;
-        this.total = res.total;
-      })
-      .add(() => {
-        this.loading = false;
-      });
-  }
-  delete(index: number, id: number) {
-    this.datum.splice(index, 1);
-    this.rs.get(`link/${id}/delete`).subscribe((res) => {
-      this.msg.success('删除成功');
-      this.load();
-    });
+  total = 0;
+  loading = false;
+
+  buttons: SmartTableButton[] = [
+    {icon: "plus", text: "创建", link: () => `/link/create`}
+  ];
+
+  columns: SmartTableColumn[] = [
+    {key: "id", sortable: true, text: "ID", keyword: true, link: (data) => `/link/${data.id}`},
+    {key: "server", sortable: true, text: "服务器", keyword: true, link: (data) => `/server/${data.server_id}`},
+    {key: "name", sortable: true, text: "名称", keyword: true},
+    {key: "remote", sortable: true, text: "远程地址", keyword: true},
+    {key: "created", sortable: true, text: "创建时间", date: true},
+  ];
+
+  operators: SmartTableOperator[] = [
+    {icon: 'edit', title: '编辑', link: data => `/link/${data.id}/edit`},
+    {
+      icon: 'delete', title: '删除', confirm: "确认删除？", action: data => {
+        this.rs.get(`link/${data.id}/delete`).subscribe(res => this.refresh())
+      }
+    },
+  ];
+
+  constructor(private rs: RequestService) {
   }
 
-  add() {
-    this.router.navigateByUrl(`/admin/create/link`);
-  }
-  edit(id: number, data: any) {
-    const path = `/admin/link/edit/${id}`;
-    this.router.navigateByUrl(path);
-  }
-  onQuery($event: NzTableQueryParams) {
-    ParseTableQuery($event, this.query);
-    this.load();
-  }
-  pageIndexChange(pageIndex: number) {
-    this.query.skip = pageIndex - 1;
-  }
-  pageSizeChange(pageSize: number) {
-    this.query.limit = pageSize;
-  }
-  search(text: any) {
-    if (text)
-      this.query.filter = {
-        id: text,
-      };
-    else this.query = {};
-    this.load();
-  }
-  cancel() {
-    this.msg.info('取消删除');
+
+  query!: ParamSearch
+
+  refresh() {
+    this.search(this.query)
   }
 
-  open(id: string) {
-    this.router.navigateByUrl('/admin/link/' + id);
+  search(query: ParamSearch) {
+    //console.log('onQuery', query)
+    this.query = query
+    this.loading = true
+    this.rs.post('link/search', query).subscribe((res) => {
+      this.datum = res.data;
+      this.total = res.total;
+    }).add(() => this.loading = false);
   }
-  handleToggleStatus(index: number, data: { disabled: boolean, id: number }) {
-    const { disabled, id } = data;
-    const url = disabled ? `link/${id}/enable` : `link/${id}/disable`;
-    this.rs.get(url).subscribe((res) => {
-      this.msg.success(`${disabled ? '启用' : '禁用'}成功!`);
-      this.load();
-    });
-  }
+
 }

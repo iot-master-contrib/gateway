@@ -1,10 +1,8 @@
-import {Component, Optional} from '@angular/core';
-import { RequestService } from '../request.service';
-import {NzModalRef} from 'ng-zorro-antd/modal';
+import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
-  ParamSearch, SmartTableButton, SmartTableColumn,
-  SmartTableComponent, SmartTableOperator
+    ParamSearch, RequestService, SmartTableButton, SmartTableColumn,
+    SmartTableComponent, SmartTableOperator
 } from "iot-master-smart";
 
 @Component({
