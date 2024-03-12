@@ -21,15 +21,15 @@ export class LinkComponent {
   loading = false;
 
   buttons: SmartTableButton[] = [
-    {icon: "plus", text: "创建", link: () => `/link/create`}
+    {icon: "plus", label: "创建", link: () => `/link/create`}
   ];
 
   columns: SmartTableColumn[] = [
-    {key: "id", sortable: true, text: "ID", keyword: true, link: (data) => `/link/${data.id}`},
-    {key: "server", sortable: true, text: "服务器", keyword: true, link: (data) => `/server/${data.server_id}`},
-    {key: "name", sortable: true, text: "名称", keyword: true},
-    {key: "remote", sortable: true, text: "远程地址", keyword: true},
-    {key: "created", sortable: true, text: "创建时间", date: true},
+    {key: "id", sortable: true, label: "ID", keyword: true, link: (data) => `/link/${data.id}`},
+    {key: "server", sortable: true, label: "服务器", keyword: true, link: (data) => `/server/${data.server_id}`},
+    {key: "name", sortable: true, label: "名称", keyword: true},
+    {key: "remote", sortable: true, label: "远程地址", keyword: true},
+    {key: "created", sortable: true, label: "创建时间", date: true},
   ];
 
   operators: SmartTableOperator[] = [

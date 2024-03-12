@@ -21,14 +21,14 @@ export class SerialComponent {
     loading = false;
 
     buttons: SmartTableButton[] = [
-        {icon: "plus", text: "创建", link: () => `/serial/create`}
+        {icon: "plus", label: "创建", link: () => `/serial/create`}
     ];
 
     columns: SmartTableColumn[] = [
-        {key: "id", sortable: true, text: "ID", keyword: true, link: (data) => `/serial/${data.id}`},
-        {key: "name", sortable: true, text: "名称", keyword: true},
-        {key: "port", sortable: true, text: "端口", keyword: true},
-        {key: "created", sortable: true, text: "创建时间", date: true},
+        {key: "id", sortable: true, label: "ID", keyword: true, link: (data) => `/serial/${data.id}`},
+        {key: "name", sortable: true, label: "名称", keyword: true},
+        {key: "port", sortable: true, label: "端口", keyword: true},
+        {key: "created", sortable: true, label: "创建时间", date: true},
     ];
 
     operators: SmartTableOperator[] = [

@@ -18,7 +18,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
-    "iot-master-smart": "^0.0.4",
+    "iot-master-smart": "^0.0.9",
     "ng-antd-color-picker": "^1.1.0",
     "ng-zorro-antd": "^17.0.0",
     "rxjs": "~7.8.0",

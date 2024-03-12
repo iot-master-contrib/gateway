@@ -19,16 +19,16 @@ export class ClientComponent {
   loading = false;
 
   buttons: SmartTableButton[] = [
-    {icon: "plus", text: "创建", link: () => `/client/create`}
+    {icon: "plus", label: "创建", link: () => `/client/create`}
   ];
 
   columns: SmartTableColumn[] = [
-    {key: "id", sortable: true, text: "ID", keyword: true, link: (data) => `/client/${data.id}`},
-    {key: "name", sortable: true, text: "名称", keyword: true},
-    {key: "net", sortable: true, text: "网络", keyword: true},
-    {key: "addr", sortable: true, text: "地址", keyword: true},
-    {key: "port", sortable: true, text: "端口", keyword: true},
-    {key: "created", sortable: true, text: "创建时间", date: true},
+    {key: "id", sortable: true, label: "ID", keyword: true, link: (data) => `/client/${data.id}`},
+    {key: "name", sortable: true, label: "名称", keyword: true},
+    {key: "net", sortable: true, label: "网络", keyword: true},
+    {key: "addr", sortable: true, label: "地址", keyword: true},
+    {key: "port", sortable: true, label: "端口", keyword: true},
+    {key: "created", sortable: true, label: "创建时间", date: true},
   ];
 
   operators: SmartTableOperator[] = [
