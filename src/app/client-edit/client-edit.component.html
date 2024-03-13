@@ -1,7 +1,7 @@
 <nz-card [nzTitle]="'客户端'+ (this.id ? '编辑' : '创建') " [nzExtra]="extraTemplate">
-  <im-smart-form #form [fields]="fields" [value]="values"></im-smart-form>
+    <im-smart-form #form [fields]="fields" [value]="values"></im-smart-form>
 </nz-card>
 
 <ng-template #extraTemplate>
-  <button nz-button nzType="primary" (click)="onSubmit()">保存</button>
+    <button nz-button nzType="primary" (click)="onSubmit()">保存</button>
 </ng-template>

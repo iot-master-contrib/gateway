@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
     ParamSearch, RequestService, SmartTableButton, SmartTableColumn,
@@ -7,58 +7,64 @@ import {
 
 @Component({
     selector: 'app-link',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SmartTableComponent,
-  ],
+    standalone: true,
+    imports: [
+        CommonModule,
+        SmartTableComponent,
+    ],
     templateUrl: './link.component.html',
     styleUrls: ['./link.component.scss'],
 })
 export class LinkComponent {
-  datum: any[] = [];
-  total = 0;
-  loading = false;
+    @Input() server_id!: string;
 
-  buttons: SmartTableButton[] = [
-    {icon: "plus", label: "创建", link: () => `/link/create`}
-  ];
+    datum: any[] = [];
+    total = 0;
+    loading = false;
 
-  columns: SmartTableColumn[] = [
-    {key: "id", sortable: true, label: "ID", keyword: true, link: (data) => `/link/${data.id}`},
-    {key: "server", sortable: true, label: "服务器", keyword: true, link: (data) => `/server/${data.server_id}`},
-    {key: "name", sortable: true, label: "名称", keyword: true},
-    {key: "remote", sortable: true, label: "远程地址", keyword: true},
-    {key: "created", sortable: true, label: "创建时间", date: true},
-  ];
+    buttons: SmartTableButton[] = [
+        {icon: "plus", label: "创建", link: () => `/link/create`}
+    ];
 
-  operators: SmartTableOperator[] = [
-    {icon: 'edit', title: '编辑', link: data => `/link/${data.id}/edit`},
-    {
-      icon: 'delete', title: '删除', confirm: "确认删除？", action: data => {
-        this.rs.get(`link/${data.id}/delete`).subscribe(res => this.refresh())
-      }
-    },
-  ];
+    columns: SmartTableColumn[] = [
+        {key: "id", sortable: true, label: "ID", keyword: true, link: (data) => `/link/${data.id}`},
+        {key: "server", sortable: true, label: "服务器", keyword: true, link: (data) => `/server/${data.server_id}`},
+        {key: "name", sortable: true, label: "名称", keyword: true},
+        {key: "remote", sortable: true, label: "远程地址", keyword: true},
+        {key: "created", sortable: true, label: "创建时间", date: true},
+    ];
 
-  constructor(private rs: RequestService) {
-  }
+    operators: SmartTableOperator[] = [
+        {icon: 'edit', title: '编辑', link: data => `/link/${data.id}/edit`},
+        {
+            icon: 'delete', title: '删除', confirm: "确认删除？", action: data => {
+                this.rs.get(`link/${data.id}/delete`).subscribe(res => this.refresh())
+            }
+        },
+    ];
+
+    constructor(private rs: RequestService) {
+    }
 
 
-  query!: ParamSearch
+    query!: ParamSearch
 
-  refresh() {
-    this.search(this.query)
-  }
+    refresh() {
+        this.search(this.query)
+    }
 
-  search(query: ParamSearch) {
-    //console.log('onQuery', query)
-    this.query = query
-    this.loading = true
-    this.rs.post('link/search', query).subscribe((res) => {
-      this.datum = res.data;
-      this.total = res.total;
-    }).add(() => this.loading = false);
-  }
+    search(query: ParamSearch) {
+        //console.log('onQuery', query)
+        this.query = query
+
+        if (this.server_id)
+            query.filter['server_id'] = this.server_id;
+
+        this.loading = true
+        this.rs.post('link/search', query).subscribe((res) => {
+            this.datum = res.data;
+            this.total = res.total;
+        }).add(() => this.loading = false);
+    }
 
 }

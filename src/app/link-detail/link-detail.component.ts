@@ -1,41 +1,81 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, RouterState} from "@angular/router";
-import {RequestService} from "iot-master-smart";
-import {JsonPipe} from "@angular/common";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {RequestService, SmartInfoComponent, SmartInfoItem} from "iot-master-smart";
 import {NzTabComponent, NzTabDirective, NzTabSetComponent} from "ng-zorro-antd/tabs";
+import {CommonModule} from "@angular/common";
 import {DeviceComponent} from "../device/device.component";
+import {NzCardComponent} from "ng-zorro-antd/card";
+import {NzSpaceComponent, NzSpaceItemDirective} from "ng-zorro-antd/space";
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
     selector: 'app-link-detail',
     templateUrl: './link-detail.component.html',
     standalone: true,
     imports: [
-        JsonPipe,
+        CommonModule,
         NzTabSetComponent,
         NzTabComponent,
+        DeviceComponent,
         NzTabDirective,
-        DeviceComponent
+        NzCardComponent,
+        SmartInfoComponent,
+        NzSpaceComponent,
+        NzSpaceItemDirective,
+        NzButtonComponent,
+        RouterLink,
+        NzPopconfirmDirective
     ],
     styleUrls: ['./link-detail.component.scss']
 })
 export class LinkDetailComponent implements OnInit {
-  id: string = ""
-  data: any = {}
+    id: string = ""
+    data: any = {}
 
-  constructor(private route: ActivatedRoute, private rs: RequestService) {
-  }
 
-  ngOnInit(): void {
-    // @ts-ignore
-    this.id = this.route.snapshot.paramMap.get("id")
+    fields: SmartInfoItem[] = [
+        {key: 'id', label: 'ID'},
+        {
+            key: 'server', label: '服务器', type: 'link',
+            link: () => `/server/${this.data.server_id}`,
+        },
+        {key: 'name', label: '名称'},
+        {key: 'remote', label: '远程地址'},
+        {key: 'disabled', label: '禁用'},
+        {key: 'created', label: '创建时间', type: 'date'},
+        {key: "poller_period", label: "采集周期"},
+        {key: "poller_interval", label: "采集间隔"},
+        {key: "protocol_name", label: "通讯协议"},
+        {key: 'description', label: '说明', span: 2},
+    ];
 
-    this.load()
-  }
+    constructor(
+        private router: Router,
+        private msg: NzMessageService,
+        private rs: RequestService,
+        private route: ActivatedRoute
+    ) {
+    }
 
-  load() {
-    this.rs.get(`link/${this.id}`).subscribe(res => {
-      this.data = res.data;
-    })
-  }
+    ngOnInit(): void {
+        // @ts-ignore
+        this.id = this.route.snapshot.paramMap.get("id")
 
+        this.load()
+    }
+
+    load() {
+        this.rs.get(`link/${this.id}`).subscribe(res => {
+            this.data = res.data;
+        })
+    }
+
+    delete() {
+        this.rs.get(`link/${this.id}/delete`, {}).subscribe((res: any) => {
+            this.msg.success('删除成功');
+            this.router.navigateByUrl('/link');
+        });
+    }
 }

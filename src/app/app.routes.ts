@@ -14,9 +14,12 @@ import {ServerEditComponent} from './server-edit/server-edit.component';
 import {ServerDetailComponent} from './server-detail/server-detail.component';
 import {UnknownComponent} from "iot-master-smart";
 import {IndexComponent} from "./index/index.component";
+import {ModbusPollerComponent} from "./modbus-poller/modbus-poller.component";
+import {ModbusStationComponent} from "./modbus-station/modbus-station.component";
+import {ModbusMapperComponent} from "./modbus-mapper/modbus-mapper.component";
 
 export const routes: Routes = [
-    {path: '', pathMatch:"full", component: IndexComponent},
+    {path: '', pathMatch: "full", component: IndexComponent},
 
     // {path: 'device', component: DeviceComponent},
     // {path: 'device/edit/:id', component: DeviceEditComponent},
@@ -40,6 +43,10 @@ export const routes: Routes = [
     {path: 'client/create', component: ClientEditComponent},
     {path: 'client/:id/edit', component: ClientEditComponent},
     {path: 'client/:id', component: ClientDetailComponent},
+
+    {path: 'modbus/station', component: ModbusStationComponent},
+    {path: 'modbus/mapper', component: ModbusMapperComponent},
+    {path: 'modbus/poller', component: ModbusPollerComponent},
 
     {path: '**', component: UnknownComponent},
 ];

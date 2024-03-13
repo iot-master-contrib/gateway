@@ -1,10 +1,19 @@
-<p>串口详情：{{ data | json }}</p>
+<nz-card nzTitle="串口详情" [nzExtra]="extra">
+    <im-smart-info [fields]="fields" [value]="data"></im-smart-info>
 
-<nz-tabset>
-  <nz-tab nzTitle="设备">
-      <app-device [tunnel]="id"></app-device>
-  </nz-tab>
-  <nz-tab nzTitle="日志">
-    <ng-template nz-tab> </ng-template>
-  </nz-tab>
-</nz-tabset>
+    <nz-tabset>
+        <nz-tab nzTitle="设备">
+            <app-device [tunnel]="id"></app-device>
+        </nz-tab>
+        <nz-tab nzTitle="日志">
+            <ng-template nz-tab></ng-template>
+        </nz-tab>
+    </nz-tabset>
+
+</nz-card>
+<ng-template #extra>
+    <nz-space>
+        <button *nzSpaceItem nz-button routerLink="edit">编辑</button>
+        <button *nzSpaceItem nz-button nz-popconfirm nzPopconfirmTitle="确认删除" (nzOnConfirm)="delete()">删除</button>
+    </nz-space>
+</ng-template>
