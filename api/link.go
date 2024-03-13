@@ -111,7 +111,7 @@ func noopLinkStop() {}
 // @Summary 导出连接
 // @Schemes
 // @Description 导出连接
-// @Tags product
+// @Tags link
 // @Accept json
 // @Produce octet-stream
 // @Router /link/export [get]
@@ -120,7 +120,7 @@ func noopLinkExport() {}
 // @Summary 导入连接
 // @Schemes
 // @Description 导入连接
-// @Tags product
+// @Tags link
 // @Param file formData file true "压缩包"
 // @Accept mpfd
 // @Produce json
@@ -131,15 +131,17 @@ func noopLinkImport() {}
 func linkRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Link]())
-	app.POST("/search", curd.ApiSearchHook[types.Link](func(links []*types.Link) error {
-		for k, link := range links {
-			c := internal.GetLink(link.Id)
-			if c != nil {
-				links[k].Running = c.Running()
+	app.POST("/search", curd.ApiSearchWithHook[types.Link](
+		[]*curd.Join{{"server", "server_id", "id", "name", "server"}},
+		func(links []*types.Link) error {
+			for k, link := range links {
+				c := internal.GetLink(link.Id)
+				if c != nil {
+					links[k].Running = c.Running()
+				}
 			}
-		}
-		return nil
-	}))
+			return nil
+		}))
 
 	app.GET("/list", curd.ApiList[types.Link]())
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGetHook[types.Link](func(link *types.Link) error {
@@ -151,7 +153,7 @@ func linkRouter(app *gin.RouterGroup) {
 	}))
 
 	app.POST("/:id", curd.ParseParamStringId, curd.ApiUpdateHook[types.Link](nil, nil,
-		"name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled"))
+		"name", "description", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled"))
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Link](nil, nil))
 
 	app.GET(":id/disable", curd.ParseParamStringId, curd.ApiDisableHook[types.Link](true, nil, func(value interface{}) error {

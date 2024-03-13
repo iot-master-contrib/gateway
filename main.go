@@ -5,19 +5,36 @@ import (
 	"github.com/iot-master-contrib/gateway/api"
 	_ "github.com/iot-master-contrib/gateway/docs"
 	"github.com/iot-master-contrib/gateway/internal"
-	"github.com/iot-master-contrib/gateway/types"
-	"github.com/zgwit/iot-master/v4/pkg/db"
 	"github.com/zgwit/iot-master/v4/pkg/log"
+	"github.com/zgwit/iot-master/v4/plugin"
 	"github.com/zgwit/iot-master/v4/web"
+	"gopkg.in/yaml.v3"
 	"net/http"
+	"strings"
 )
 
 //go:embed all:www
 var wwwFiles embed.FS
 
+//go:embed manifest.yaml
+var _manifest string
+var manifest plugin.Manifest
+
+func Manifest() *plugin.Manifest {
+	manifest.Startup = Startup
+	manifest.Shutdown = Shutdown
+	return &manifest
+}
+
 func init() {
 	//前端静态文件
 	web.Static.Put("/$gateway", http.FS(wwwFiles), "www", "www/index.html")
+
+	d := yaml.NewDecoder(strings.NewReader(_manifest))
+	err := d.Decode(&manifest)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // @title 物联大师网关接口文档
@@ -30,17 +47,8 @@ func main() {
 
 func Startup() error {
 
-	//同步表结构
-	err := db.Engine.Sync2(
-		new(types.Client), new(types.Server),
-		new(types.Link), new(types.Serial),
-	)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	//内部加载
-	err = internal.LoadProducts()
+	err := internal.LoadProducts()
 	if err != nil {
 		log.Fatal(err)
 	}

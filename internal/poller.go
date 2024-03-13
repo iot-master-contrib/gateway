@@ -43,7 +43,7 @@ func (p *poller) Poll() bool {
 		//统计加1
 		sum := 0
 
-		values, err := p.adapter.Poll(device.Station, product.Mappers)
+		values, err := p.adapter.Poll(device.ModbusStation, product.Mappers)
 		if err != nil {
 			log.Error(err)
 			//continue

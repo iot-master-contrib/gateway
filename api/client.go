@@ -189,7 +189,7 @@ func clientRouter(app *gin.RouterGroup) {
 		}
 		return internal.LoadClient(value)
 	},
-		"id", "name", "desc", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled", "retry_timeout", "retry_maximum", "net", "addr", "port"))
+		"id", "name", "description", "heartbeat", "poller_period", "poller_interval", "protocol_name", "protocol_options", "disabled", "retry_timeout", "retry_maximum", "net", "addr", "port"))
 
 	app.GET("/:id/delete", curd.ParseParamStringId, curd.ApiDeleteHook[types.Client](nil, func(value interface{}) error {
 		id := value.(string)

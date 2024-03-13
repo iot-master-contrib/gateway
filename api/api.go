@@ -11,4 +11,6 @@ func RegisterRoutes(app *gin.RouterGroup) {
 	serverRouter(app.Group("/server"))
 
 	linkRouter(app.Group("/link"))
+
+	deviceRouter(app.Group("/device"))
 }
