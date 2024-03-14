@@ -2,7 +2,7 @@ package internal
 
 import (
 	"github.com/PaesslerAG/gval"
-	"github.com/iot-master-contrib/gateway/types"
+	"github.com/iot-master-contrib/gateway/modbus"
 	"github.com/zgwit/iot-master/v4/lib"
 	"github.com/zgwit/iot-master/v4/pkg/calc"
 	"github.com/zgwit/iot-master/v4/pkg/db"
@@ -11,7 +11,7 @@ import (
 )
 
 type Product struct {
-	*types.Product
+	*modbus.Product
 
 	filters     []gval.Evaluable
 	calculators []gval.Evaluable
@@ -20,7 +20,7 @@ type Product struct {
 var Products lib.Map[Product]
 
 func LoadProducts() error {
-	var products []*types.Product
+	var products []*modbus.Product
 	err := db.Engine.Find(&products)
 	if err != nil {
 		if err == xorm.ErrNotExist {
@@ -37,7 +37,7 @@ func LoadProducts() error {
 	return nil
 }
 
-func LoadProduct(m *types.Product) error {
+func LoadProduct(m *modbus.Product) error {
 	p := &Product{Product: m}
 
 	for _, v := range m.Filters {

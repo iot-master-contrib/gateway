@@ -3,8 +3,8 @@ package internal
 import (
 	"errors"
 	"github.com/iot-master-contrib/gateway/connect"
+	"github.com/iot-master-contrib/gateway/protocol"
 	"github.com/iot-master-contrib/gateway/types"
-	"github.com/zgwit/iot-master/v4/pkg/log"
 	"io"
 	"sync"
 	"time"
@@ -13,7 +13,7 @@ import (
 type tunnelBase struct {
 	connect.Conn
 
-	poller *poller
+	adapter protocol.Adapter
 
 	lock sync.Mutex
 
@@ -83,60 +83,7 @@ func (l *tunnelBase) Read(data []byte) (int, error) {
 }
 
 func (l *tunnelBase) start(model *types.Tunnel) (err error) {
-
-	l.poller, err = newPoller(l.Conn, model.ProtocolOptions)
-	if err != nil {
-		return
-	}
-
-	//加载设备
-	err = l.poller.Load(model.Id)
-	if err != nil {
-		return
-	}
-
-	//开启线程，在回调中完成一次询问
-	go func() {
-
-		//避免异常退出，只是结束当前协程
-		defer func() {
-			l.running = false
-			if err := recover(); err != nil {
-				log.Error(err)
-			}
-		}()
-
-		l.running = true
-
-		for {
-			if !l.running {
-				break
-			}
-
-			start := time.Now().Unix()
-
-			//轮询
-			if !l.poller.Poll() {
-				break
-			}
-
-			//等待时间
-			elapsed := time.Now().Unix() - start
-			if model.PollerPeriod == 0 && elapsed < 1 {
-				//避免死循环
-				time.Sleep(time.Second)
-			}
-
-			if elapsed < int64(model.PollerPeriod) {
-				time.Sleep(time.Duration(int64(model.PollerPeriod)-elapsed) * time.Second)
-			}
-		}
-
-		_ = l.poller.Close()
-
-		l.running = false
-	}()
-
+	l.adapter, err = protocol.Create(model.Id, l.Conn, model.ProtocolName, model.ProtocolOptions.ProtocolOptions)
 	return
 }
 
