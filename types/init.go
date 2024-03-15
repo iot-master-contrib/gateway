@@ -5,5 +5,5 @@ import (
 )
 
 func init() {
-	db.Register(new(Client), new(Server), new(Link), new(Serial))
+	db.Register(new(Client), new(Server), new(Link), new(Serial), new(Device))
 }

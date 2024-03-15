@@ -5,6 +5,7 @@ import (
 	"github.com/iot-master-contrib/gateway/api"
 	_ "github.com/iot-master-contrib/gateway/docs"
 	"github.com/iot-master-contrib/gateway/internal"
+	_ "github.com/iot-master-contrib/gateway/modbus" //默认引入modbus协议
 	"github.com/zgwit/iot-master/v4/pkg/log"
 	"github.com/zgwit/iot-master/v4/plugin"
 	"github.com/zgwit/iot-master/v4/web"

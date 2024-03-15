@@ -1,5 +1,4 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Routes} from '@angular/router';
 import {ClientComponent} from './client/client.component';
 import {ClientEditComponent} from './client-edit/client-edit.component';
 import {ClientDetailComponent} from './client-detail/client-detail.component';
@@ -14,15 +13,15 @@ import {ServerEditComponent} from './server-edit/server-edit.component';
 import {ServerDetailComponent} from './server-detail/server-detail.component';
 import {UnknownComponent} from "iot-master-smart";
 import {IndexComponent} from "./index/index.component";
-import {ModbusPollerComponent} from "./modbus-poller/modbus-poller.component";
 import {ModbusStationComponent} from "./modbus-station/modbus-station.component";
 import {ModbusMapperComponent} from "./modbus-mapper/modbus-mapper.component";
+import {ModbusOptionsComponent} from "./modbus-options/modbus-options.component";
+import {ModbusStationEditComponent} from "./modbus-station-edit/modbus-station-edit.component";
+import {ModbusMapperEditComponent} from "./modbus-mapper-edit/modbus-mapper-edit.component";
+import {ModbusOptionsEditComponent} from "./modbus-options-edit/modbus-options-edit.component";
 
 export const routes: Routes = [
     {path: '', pathMatch: "full", component: IndexComponent},
-
-    // {path: 'device', component: DeviceComponent},
-    // {path: 'device/edit/:id', component: DeviceEditComponent},
 
     {path: 'server', component: ServerComponent},
     {path: 'server/create', component: ServerEditComponent},
@@ -41,12 +40,15 @@ export const routes: Routes = [
 
     {path: 'client', component: ClientComponent},
     {path: 'client/create', component: ClientEditComponent},
-    {path: 'client/:id/edit', component: ClientEditComponent},
     {path: 'client/:id', component: ClientDetailComponent},
+    {path: 'client/:id/edit', component: ClientEditComponent},
 
     {path: 'modbus/station', component: ModbusStationComponent},
+    {path: 'modbus/station/edit', component: ModbusStationEditComponent},
     {path: 'modbus/mapper', component: ModbusMapperComponent},
-    {path: 'modbus/poller', component: ModbusPollerComponent},
+    {path: 'modbus/mapper/edit', component: ModbusMapperEditComponent},
+    {path: 'modbus/options', component: ModbusOptionsComponent},
+    {path: 'modbus/options/edit', component: ModbusOptionsEditComponent},
 
     {path: '**', component: UnknownComponent},
 ];
