@@ -1,1 +1,10 @@
-<p>modbus-station-edit works!</p>
+<ng-template #extra>
+        <button nz-button nzType="primary" (click)="submit()">
+            <i nz-icon nzType="save"></i>
+            保存
+        </button>
+</ng-template>
+
+<nz-card nzTitle="编辑Modbus地址" [nzExtra]="extra">
+    <im-smart-form #form [fields]="fields" [value]="data"></im-smart-form>
+</nz-card>

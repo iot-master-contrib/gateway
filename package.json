@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --serve-path /$gateway/ -o",
+    "start": "ng serve --serve-path /$gateway/ --port 4300 -o",
     "build": "ng build --base-href /$gateway/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

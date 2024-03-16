@@ -49,13 +49,13 @@ func main() {
 func Startup() error {
 
 	//内部加载
-	err := internal.LoadProducts()
-	if err != nil {
-		log.Fatal(err)
-	}
+	//err := internal.LoadProducts()
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
 
 	//连接
-	err = internal.Load()
+	err := internal.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
