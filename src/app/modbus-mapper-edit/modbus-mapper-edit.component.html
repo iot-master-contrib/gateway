@@ -1,1 +1,61 @@
-<p>modbus-mapper-edit works!</p>
+<ng-template #extra>
+    <nz-space>
+        <button *nzSpaceItem nz-button (click)="add()">
+            <i nz-icon nzType="plus"></i>
+            添加地址段
+        </button>
+        <button *nzSpaceItem nz-button nzType="primary" (click)="submit()">
+            <i nz-icon nzType="save"></i>
+            保存
+        </button>
+    </nz-space>
+</ng-template>
+
+<nz-card nzTitle="编辑Modbus地址表" [nzExtra]="extra">
+    <form nz-form [formGroup]="group">
+
+        <ng-container formGroupName="mappers">
+
+            <ng-container *ngFor="let mapper of group.get('mappers').controls; let i = index">
+                <ng-template #extra2>
+                        <button *nzSpaceItem nz-button (click)="del(i)">
+                            <i nz-icon nzType="delete"></i>
+                            删除
+                        </button>
+                </ng-template>
+
+                <nz-card [nzTitle]="'地址段 - '+(i+1)" [formGroupName]="i" [nzExtra]="extra2">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="code">功能码</nz-form-label>
+                        <nz-form-control [nzSpan]="5">
+                            <nz-select formControlName="code">
+                                <nz-option nzLabel="01" [nzValue]="1"></nz-option>
+                                <nz-option nzLabel="02" [nzValue]="2"></nz-option>
+                                <nz-option nzLabel="03" [nzValue]="3"></nz-option>
+                                <nz-option nzLabel="04" [nzValue]="4"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="address">地址</nz-form-label>
+                        <nz-form-control [nzSpan]="5">
+                            <nz-input-number formControlName="address"></nz-input-number>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="size">长度</nz-form-label>
+                        <nz-form-control [nzSpan]="16">
+                            <nz-input-number formControlName="size"></nz-input-number>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <im-smart-table-edit formControlName="points" #table
+                                         title="数据点" [columns]="mapper.get('code').value<3 ? columnBits : columns">
+                    </im-smart-table-edit>
+                </nz-card>
+            </ng-container>
+        </ng-container>
+    </form>
+</nz-card>

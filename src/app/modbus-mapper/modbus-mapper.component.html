@@ -1,1 +1,12 @@
-<p>modbus-mapper works!</p>
+<nz-card nzTitle="Modbus地址表">
+    <ng-container *ngFor="let mapper of mappers; let i = index">
+
+        <nz-card [nzTitle]="'地址段 - '+(i+1)">
+
+            <im-smart-info [fields]="fields" [value]="mapper"></im-smart-info>
+
+            <im-smart-table [columns]="mapper.code<3 ? columnBits : columns" [datum]="mapper.points"></im-smart-table>
+
+        </nz-card>
+    </ng-container>
+</nz-card>

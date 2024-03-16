@@ -2,6 +2,7 @@ package modbus
 
 import (
 	"errors"
+	"fmt"
 	"github.com/iot-master-contrib/gateway/types"
 	"github.com/zgwit/iot-master/v4/pkg/db"
 	"github.com/zgwit/iot-master/v4/pkg/log"
@@ -31,6 +32,15 @@ func (adapter *Adapter) start(tunnel string, opts types.Options) error {
 
 	//开始轮询
 	go func() {
+
+		//设备上线
+		//!!! 不能这样做，不然启动服务器会产生大量的消息
+		//for _, dev := range adapter.devices {
+		//	topic := fmt.Sprintf("device/online/%s", dev.Id)
+		//	_ = mqtt.Publish(topic, nil)
+		//}
+
+	OUT:
 		for {
 			start := time.Now().Unix()
 			for _, dev := range adapter.devices {
@@ -40,23 +50,25 @@ func (adapter *Adapter) start(tunnel string, opts types.Options) error {
 
 					//连接断开错误
 					if err == io.EOF {
-						return
+						break OUT
 					}
 
 					//网络错误（读超时除外）
 					var ne net.Error
 					if errors.As(err, &ne) && !ne.Timeout() {
-						return
+						break OUT
 					}
 
 					//串口错误（读超时除外）
 					var se *serial.PortError
 					if errors.As(err, &se) && (se.Code() != serial.InvalidTimeoutValue) {
-						return
+						break OUT
 					}
 				}
+
 				//_ = pool.Insert(func() {
-				mqtt.Publish("up/property/"+dev.Id, values)
+				topic := fmt.Sprintf("device/%s/property", dev.Id)
+				mqtt.Publish(topic, values)
 			}
 
 			now := time.Now().Unix()
@@ -69,6 +81,12 @@ func (adapter *Adapter) start(tunnel string, opts types.Options) error {
 			if now-start < 1 {
 				time.Sleep(time.Minute)
 			}
+		}
+
+		//设备下线
+		for _, dev := range adapter.devices {
+			topic := fmt.Sprintf("device/%s/offline", dev.Id)
+			_ = mqtt.Publish(topic, nil)
 		}
 	}()
 	return nil

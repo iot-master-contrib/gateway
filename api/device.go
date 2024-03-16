@@ -42,7 +42,10 @@ func noopDeviceUpdate() {}
 
 func deviceRouter(app *gin.RouterGroup) {
 
-	app.POST("/search", curd.ApiSearchWith[types.Device]([]*curd.Join{{"server", "server_id", "id", "name", "server"}}))
+	app.POST("/search", curd.ApiSearchWith[types.Device]([]*curd.Join{
+		{"server", "server_id", "id", "name", "server"},
+		{"server", "server_id", "id", "name", "server"},
+	}))
 
 	app.GET("/:id", curd.ParseParamStringId, curd.ApiGet[types.Device]())
 

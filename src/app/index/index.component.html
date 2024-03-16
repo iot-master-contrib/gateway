@@ -12,3 +12,12 @@
 
 
 <p><a routerLink="/serial">串口</a></p>
+
+<p><a routerLink="/modbus/mapper" [queryParams]="{product:'test', version:'0.0.1'}">Modbus地址表</a></p>
+<p><a routerLink="/modbus/mapper/edit" [queryParams]="{product:'test', version:'0.0.1'}">编辑Modbus地址表</a></p>
+
+<p><a routerLink="/modbus/station" [queryParams]="{device:'test'}">Modbus地址</a></p>
+<p><a routerLink="/modbus/station/edit" [queryParams]="{device:'test'}">编辑Modbus地址</a></p>
+
+<p><a routerLink="/modbus/options" [queryParams]="{tunnel:'test'}">Modbus协议配置</a></p>
+<p><a routerLink="/modbus/options/edit" [queryParams]="{tunnel:'test'}">编辑Modbus协议配置</a></p>

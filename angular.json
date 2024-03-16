@@ -49,12 +49,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
+              "src/assets"
             ],
             "styles": [
               "src/theme.less",
@@ -79,28 +74,22 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "iot-master-gateway:build",
-            "proxyConfig": "proxy.conf.json"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "iot-master-gateway:build:production"
+              "buildTarget": "iot-master-gateway:build:production"
             },
             "development": {
-              "browserTarget": "iot-master-gateway:build:development"
+              "buildTarget": "iot-master-gateway:build:development",
+            "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

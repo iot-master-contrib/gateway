@@ -82,6 +82,8 @@ func (s *Server) Open() error {
 				continue
 			}
 
+			//TODO 只有配置了注册包，才
+
 			buf := make([]byte, 128)
 			n, err := c.Read(buf)
 			if err != nil {
