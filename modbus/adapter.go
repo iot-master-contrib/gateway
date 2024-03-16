@@ -6,6 +6,9 @@ import (
 	"github.com/zgwit/iot-master/v4/pkg/db"
 	"github.com/zgwit/iot-master/v4/pkg/log"
 	"github.com/zgwit/iot-master/v4/pkg/mqtt"
+	"go.bug.st/serial"
+	"io"
+	"net"
 	"time"
 )
 
@@ -34,8 +37,23 @@ func (adapter *Adapter) start(tunnel string, opts types.Options) error {
 				values, err := adapter.Sync(dev)
 				if err != nil {
 					log.Error(err)
-					//TODO 判断错误类型，如果是网络错误，再退出线程
-					return //出现错误就退出
+
+					//连接断开错误
+					if err == io.EOF {
+						return
+					}
+
+					//网络错误（读超时除外）
+					var ne net.Error
+					if errors.As(err, &ne) && !ne.Timeout() {
+						return
+					}
+
+					//串口错误（读超时除外）
+					var se *serial.PortError
+					if errors.As(err, &se) && (se.Code() != serial.InvalidTimeoutValue) {
+						return
+					}
 				}
 				//_ = pool.Insert(func() {
 				mqtt.Publish("up/property/"+dev.Id, values)
