@@ -1,6 +1,6 @@
-basePath: /api/gateway/api/
+basePath: /$gateway/api/
 definitions:
-  api.ParamSearch:
+  curd.ParamSearch:
     properties:
       filter:
         additionalProperties: true
@@ -18,63 +18,67 @@ definitions:
           type: integer
         type: object
     type: object
-  api.ReplyData-int64:
+  curd.ReplyData-github_com_iot-master-contrib_gateway_types_Device:
+    properties:
+      data:
+        $ref: '#/definitions/github_com_iot-master-contrib_gateway_types.Device'
+      error:
+        type: string
+    type: object
+  curd.ReplyData-int64:
     properties:
       data:
         type: integer
       error:
         type: string
     type: object
-  api.ReplyData-string:
+  curd.ReplyData-string:
     properties:
       data:
         type: string
       error:
         type: string
     type: object
-  api.ReplyData-types_Client:
+  curd.ReplyData-types_Client:
     properties:
       data:
         $ref: '#/definitions/types.Client'
       error:
         type: string
     type: object
-  api.ReplyData-types_Device:
-    properties:
-      data:
-        $ref: '#/definitions/types.Device'
-      error:
-        type: string
-    type: object
-  api.ReplyData-types_Link:
+  curd.ReplyData-types_Link:
     properties:
       data:
         $ref: '#/definitions/types.Link'
       error:
         type: string
     type: object
-  api.ReplyData-types_Product:
-    properties:
-      data:
-        $ref: '#/definitions/types.Product'
-      error:
-        type: string
-    type: object
-  api.ReplyData-types_Serial:
+  curd.ReplyData-types_Serial:
     properties:
       data:
         $ref: '#/definitions/types.Serial'
       error:
         type: string
     type: object
-  api.ReplyData-types_Server:
+  curd.ReplyData-types_Server:
     properties:
       data:
         $ref: '#/definitions/types.Server'
       error:
         type: string
     type: object
-  api.ReplyList-types_Client:
+  curd.ReplyList-github_com_iot-master-contrib_gateway_types_Device:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/github_com_iot-master-contrib_gateway_types.Device'
+        type: array
+      error:
+        type: string
+      total:
+        type: integer
+    type: object
+  curd.ReplyList-types_Client:
     properties:
       data:
         items:
@@ -85,18 +89,7 @@ definitions:
       total:
         type: integer
     type: object
-  api.ReplyList-types_Device:
-    properties:
-      data:
-        items:
-          $ref: '#/definitions/types.Device'
-        type: array
-      error:
-        type: string
-      total:
-        type: integer
-    type: object
-  api.ReplyList-types_Link:
+  curd.ReplyList-types_Link:
     properties:
       data:
         items:
@@ -107,18 +100,7 @@ definitions:
       total:
         type: integer
     type: object
-  api.ReplyList-types_Product:
-    properties:
-      data:
-        items:
-          $ref: '#/definitions/types.Product'
-        type: array
-      error:
-        type: string
-      total:
-        type: integer
-    type: object
-  api.ReplyList-types_Serial:
+  curd.ReplyList-types_Serial:
     properties:
       data:
         items:
@@ -129,7 +111,7 @@ definitions:
       total:
         type: integer
     type: object
-  api.ReplyList-types_Server:
+  curd.ReplyList-types_Server:
     properties:
       data:
         items:
@@ -140,13 +122,46 @@ definitions:
       total:
         type: integer
     type: object
-  types.Calculator:
+  github_com_iot-master-contrib_gateway_types.Device:
     properties:
-      expression:
-        description: 表达式
+      created:
         type: string
+      description:
+        type: string
+      disabled:
+        type: boolean
+      gateway:
+        type: string
+      gateway_id:
+        type: string
+      id:
+        description: ClientID
+        type: string
+      modbus_station:
+        type: integer
       name:
-        description: 赋值
+        type: string
+      online:
+        type: boolean
+      parameters:
+        additionalProperties:
+          type: number
+        description: 模型参数，用于报警检查
+        type: object
+      product:
+        type: string
+      product_id:
+        type: string
+      product_version:
+        type: string
+      project:
+        type: string
+      project_id:
+        type: string
+      tunnel:
+        type: string
+      tunnel_id:
+        description: 通道
         type: string
     type: object
   types.Client:
@@ -157,7 +172,7 @@ definitions:
       created:
         description: 创建时间
         type: string
-      desc:
+      description:
         description: 说明
         type: string
       disabled:
@@ -211,48 +226,12 @@ definitions:
         description: 从站号
         type: integer
     type: object
-  types.Device:
-    properties:
-      created:
-        type: string
-      desc:
-        description: 说明
-        type: string
-      disabled:
-        type: boolean
-      id:
-        type: string
-      name:
-        description: 名称
-        type: string
-      online:
-        type: boolean
-      product_id:
-        description: 产品ID
-        type: string
-      station:
-        allOf:
-        - $ref: '#/definitions/types.Station'
-        description: 从站配置
-      tunnel_id:
-        description: 通道
-        type: string
-    type: object
-  types.Filter:
-    properties:
-      expression:
-        description: 表达式
-        type: string
-      name:
-        description: 字段
-        type: string
-    type: object
   types.Link:
     properties:
       created:
         description: 创建时间
         type: string
-      desc:
+      description:
         description: 说明
         type: string
       disabled:
@@ -288,71 +267,6 @@ definitions:
         description: 服务器ID
         type: string
     type: object
-  types.Mapper:
-    properties:
-      addr:
-        type: integer
-      area:
-        type: integer
-      code:
-        type: integer
-      points:
-        description: 数据点
-        items:
-          $ref: '#/definitions/types.Point'
-        type: array
-      size:
-        description: 长度
-        type: integer
-    type: object
-  types.Point:
-    properties:
-      be:
-        description: 大端模式
-        type: boolean
-      bits:
-        description: 位，1 2 3...
-        type: integer
-      name:
-        description: 名称
-        type: string
-      offset:
-        description: 偏移
-        type: integer
-      rate:
-        description: 倍率
-        type: number
-      type:
-        description: 类型
-        type: string
-    type: object
-  types.Product:
-    properties:
-      calculators:
-        items:
-          $ref: '#/definitions/types.Calculator'
-        type: array
-      created:
-        description: 创建时间
-        type: string
-      desc:
-        description: 说明
-        type: string
-      filters:
-        items:
-          $ref: '#/definitions/types.Filter'
-        type: array
-      id:
-        type: string
-      mappers:
-        description: model.Product `xorm:"extends"`
-        items:
-          $ref: '#/definitions/types.Mapper'
-        type: array
-      name:
-        description: 名称
-        type: string
-    type: object
   types.Serial:
     properties:
       baud_rate:
@@ -364,7 +278,7 @@ definitions:
       data_bits:
         description: 5 6 7 8
         type: integer
-      desc:
+      description:
         description: 说明
         type: string
       disabled:
@@ -414,7 +328,7 @@ definitions:
       created:
         description: 创建时间
         type: string
-      desc:
+      description:
         description: 说明
         type: string
       devices:
@@ -454,10 +368,6 @@ definitions:
         description: 单例模式（不支持注册）
         type: boolean
     type: object
-  types.Station:
-    additionalProperties:
-      type: integer
-    type: object
 info:
   contact: {}
   description: API文档
@@ -481,7 +391,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Client'
+            $ref: '#/definitions/curd.ReplyData-types_Client'
       summary: 获取客户端
       tags:
       - client
@@ -507,7 +417,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Client'
+            $ref: '#/definitions/curd.ReplyData-types_Client'
       summary: 修改客户端
       tags:
       - client
@@ -528,7 +438,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Client'
+            $ref: '#/definitions/curd.ReplyData-types_Client'
       summary: 删除客户端
       tags:
       - client
@@ -549,7 +459,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Client'
+            $ref: '#/definitions/curd.ReplyData-types_Client'
       summary: 禁用客户端
       tags:
       - client
@@ -570,7 +480,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Client'
+            $ref: '#/definitions/curd.ReplyData-types_Client'
       summary: 启用客户端
       tags:
       - client
@@ -591,7 +501,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Client'
+            $ref: '#/definitions/curd.ReplyData-types_Client'
       summary: 启动客户端
       tags:
       - client
@@ -612,7 +522,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Client'
+            $ref: '#/definitions/curd.ReplyData-types_Client'
       summary: 停止客户端
       tags:
       - client
@@ -627,14 +537,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/api.ParamSearch'
+          $ref: '#/definitions/curd.ParamSearch'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-int64'
+            $ref: '#/definitions/curd.ReplyData-int64'
       summary: 查询客户端数量
       tags:
       - client
@@ -656,7 +566,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Client'
+            $ref: '#/definitions/curd.ReplyData-types_Client'
       summary: 创建客户端
       tags:
       - client
@@ -688,7 +598,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-int64'
+            $ref: '#/definitions/curd.ReplyData-int64'
       summary: 导入客户端
       tags:
       - product
@@ -710,7 +620,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-types_Client'
+            $ref: '#/definitions/curd.ReplyList-types_Client'
       summary: 查询客户端
       tags:
       - client
@@ -725,14 +635,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/api.ParamSearch'
+          $ref: '#/definitions/curd.ParamSearch'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-types_Client'
+            $ref: '#/definitions/curd.ReplyList-types_Client'
       summary: 查询客户端
       tags:
       - client
@@ -753,7 +663,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Device'
+            $ref: '#/definitions/curd.ReplyData-github_com_iot-master-contrib_gateway_types_Device'
       summary: 获取设备
       tags:
       - device
@@ -772,176 +682,15 @@ paths:
         name: device
         required: true
         schema:
-          $ref: '#/definitions/types.Device'
+          $ref: '#/definitions/github_com_iot-master-contrib_gateway_types.Device'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Device'
+            $ref: '#/definitions/curd.ReplyData-github_com_iot-master-contrib_gateway_types_Device'
       summary: 修改设备
-      tags:
-      - device
-  /device/{id}/delete:
-    get:
-      consumes:
-      - application/json
-      description: 删除设备
-      parameters:
-      - description: 设备ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Device'
-      summary: 删除设备
-      tags:
-      - device
-  /device/{id}/disable:
-    get:
-      consumes:
-      - application/json
-      description: 禁用设备
-      parameters:
-      - description: 设备ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Device'
-      summary: 禁用设备
-      tags:
-      - device
-  /device/{id}/enable:
-    get:
-      consumes:
-      - application/json
-      description: 启用设备
-      parameters:
-      - description: 设备ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Device'
-      summary: 启用设备
-      tags:
-      - device
-  /device/count:
-    post:
-      consumes:
-      - application/json
-      description: 查询设备数量
-      parameters:
-      - description: 查询参数
-        in: body
-        name: search
-        required: true
-        schema:
-          $ref: '#/definitions/api.ParamSearch'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int64'
-      summary: 查询设备数量
-      tags:
-      - device
-  /device/create:
-    post:
-      consumes:
-      - application/json
-      description: 创建设备
-      parameters:
-      - description: 设备信息
-        in: body
-        name: search
-        required: true
-        schema:
-          $ref: '#/definitions/types.Device'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Device'
-      summary: 创建设备
-      tags:
-      - device
-  /device/export:
-    get:
-      consumes:
-      - application/json
-      description: 导出设备
-      produces:
-      - application/octet-stream
-      responses: {}
-      summary: 导出设备
-      tags:
-      - product
-  /device/import:
-    post:
-      consumes:
-      - multipart/form-data
-      description: 导入设备
-      parameters:
-      - description: 压缩包
-        in: formData
-        name: file
-        required: true
-        type: file
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int64'
-      summary: 导入设备
-      tags:
-      - product
-  /device/list:
-    get:
-      consumes:
-      - application/json
-      description: 查询设备
-      parameters:
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: skip
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyList-types_Device'
-      summary: 查询设备
       tags:
       - device
   /device/search:
@@ -955,14 +704,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/api.ParamSearch'
+          $ref: '#/definitions/curd.ParamSearch'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-types_Device'
+            $ref: '#/definitions/curd.ReplyList-github_com_iot-master-contrib_gateway_types_Device'
       summary: 查询设备
       tags:
       - device
@@ -983,7 +732,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Link'
+            $ref: '#/definitions/curd.ReplyData-types_Link'
       summary: 获取连接
       tags:
       - link
@@ -1009,7 +758,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Link'
+            $ref: '#/definitions/curd.ReplyData-types_Link'
       summary: 修改连接
       tags:
       - link
@@ -1030,7 +779,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Link'
+            $ref: '#/definitions/curd.ReplyData-types_Link'
       summary: 删除连接
       tags:
       - link
@@ -1051,7 +800,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Link'
+            $ref: '#/definitions/curd.ReplyData-types_Link'
       summary: 禁用连接
       tags:
       - link
@@ -1072,7 +821,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Link'
+            $ref: '#/definitions/curd.ReplyData-types_Link'
       summary: 启用连接
       tags:
       - link
@@ -1093,7 +842,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Link'
+            $ref: '#/definitions/curd.ReplyData-types_Link'
       summary: 停止连接
       tags:
       - link
@@ -1108,14 +857,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/api.ParamSearch'
+          $ref: '#/definitions/curd.ParamSearch'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-int64'
+            $ref: '#/definitions/curd.ReplyData-int64'
       summary: 查询连接数量
       tags:
       - link
@@ -1129,7 +878,7 @@ paths:
       responses: {}
       summary: 导出连接
       tags:
-      - product
+      - link
   /link/import:
     post:
       consumes:
@@ -1147,10 +896,10 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-int64'
+            $ref: '#/definitions/curd.ReplyData-int64'
       summary: 导入连接
       tags:
-      - product
+      - link
   /link/list:
     get:
       consumes:
@@ -1169,7 +918,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-types_Link'
+            $ref: '#/definitions/curd.ReplyList-types_Link'
       summary: 查询连接
       tags:
       - link
@@ -1184,205 +933,17 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/api.ParamSearch'
+          $ref: '#/definitions/curd.ParamSearch'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-types_Link'
+            $ref: '#/definitions/curd.ReplyList-types_Link'
       summary: 查询连接
       tags:
       - link
-  /product/{id}:
-    get:
-      consumes:
-      - application/json
-      description: 获取产品
-      parameters:
-      - description: 产品ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Product'
-      summary: 获取产品
-      tags:
-      - product
-    post:
-      consumes:
-      - application/json
-      description: 修改产品
-      parameters:
-      - description: 产品ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: 产品信息
-        in: body
-        name: product
-        required: true
-        schema:
-          $ref: '#/definitions/types.Product'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Product'
-      summary: 修改产品
-      tags:
-      - product
-  /product/{id}/delete:
-    get:
-      consumes:
-      - application/json
-      description: 删除产品
-      parameters:
-      - description: 产品ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Product'
-      summary: 删除产品
-      tags:
-      - product
-  /product/count:
-    post:
-      consumes:
-      - application/json
-      description: 查询产品数量
-      parameters:
-      - description: 查询参数
-        in: body
-        name: search
-        required: true
-        schema:
-          $ref: '#/definitions/api.ParamSearch'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int64'
-      summary: 查询产品数量
-      tags:
-      - product
-  /product/create:
-    post:
-      consumes:
-      - application/json
-      description: 创建产品
-      parameters:
-      - description: 产品信息
-        in: body
-        name: search
-        required: true
-        schema:
-          $ref: '#/definitions/types.Product'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-types_Product'
-      summary: 创建产品
-      tags:
-      - product
-  /product/export:
-    get:
-      consumes:
-      - application/json
-      description: 导出产品
-      produces:
-      - application/octet-stream
-      responses: {}
-      summary: 导出产品
-      tags:
-      - product
-  /product/import:
-    post:
-      consumes:
-      - multipart/form-data
-      description: 导入产品
-      parameters:
-      - description: 压缩包
-        in: formData
-        name: file
-        required: true
-        type: file
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyData-int64'
-      summary: 导入产品
-      tags:
-      - product
-  /product/list:
-    get:
-      consumes:
-      - application/json
-      description: 查询产品
-      parameters:
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: skip
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyList-types_Product'
-      summary: 查询产品
-      tags:
-      - product
-  /product/search:
-    post:
-      consumes:
-      - application/json
-      description: 查询产品
-      parameters:
-      - description: 查询参数
-        in: body
-        name: search
-        required: true
-        schema:
-          $ref: '#/definitions/api.ParamSearch'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.ReplyList-types_Product'
-      summary: 查询产品
-      tags:
-      - product
   /serial/{id}:
     get:
       consumes:
@@ -1400,7 +961,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Serial'
+            $ref: '#/definitions/curd.ReplyData-types_Serial'
       summary: 获取串口
       tags:
       - serial
@@ -1426,7 +987,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Serial'
+            $ref: '#/definitions/curd.ReplyData-types_Serial'
       summary: 修改串口
       tags:
       - serial
@@ -1447,7 +1008,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Serial'
+            $ref: '#/definitions/curd.ReplyData-types_Serial'
       summary: 删除串口
       tags:
       - serial
@@ -1468,7 +1029,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Serial'
+            $ref: '#/definitions/curd.ReplyData-types_Serial'
       summary: 禁用串口
       tags:
       - serial
@@ -1489,7 +1050,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Serial'
+            $ref: '#/definitions/curd.ReplyData-types_Serial'
       summary: 启用串口
       tags:
       - serial
@@ -1510,7 +1071,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Serial'
+            $ref: '#/definitions/curd.ReplyData-types_Serial'
       summary: 启动串口
       tags:
       - serial
@@ -1531,7 +1092,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Serial'
+            $ref: '#/definitions/curd.ReplyData-types_Serial'
       summary: 停止串口
       tags:
       - serial
@@ -1546,14 +1107,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/api.ParamSearch'
+          $ref: '#/definitions/curd.ParamSearch'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-int64'
+            $ref: '#/definitions/curd.ReplyData-int64'
       summary: 查询串口数量
       tags:
       - serial
@@ -1575,7 +1136,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Serial'
+            $ref: '#/definitions/curd.ReplyData-types_Serial'
       summary: 创建串口
       tags:
       - serial
@@ -1607,7 +1168,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-int64'
+            $ref: '#/definitions/curd.ReplyData-int64'
       summary: 导入串口
       tags:
       - product
@@ -1629,7 +1190,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-types_Serial'
+            $ref: '#/definitions/curd.ReplyList-types_Serial'
       summary: 查询串口
       tags:
       - serial
@@ -1642,7 +1203,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-string'
+            $ref: '#/definitions/curd.ReplyData-string'
       summary: 串口列表
       tags:
       - serial
@@ -1657,14 +1218,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/api.ParamSearch'
+          $ref: '#/definitions/curd.ParamSearch'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-types_Serial'
+            $ref: '#/definitions/curd.ReplyList-types_Serial'
       summary: 查询串口
       tags:
       - serial
@@ -1685,7 +1246,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Server'
+            $ref: '#/definitions/curd.ReplyData-types_Server'
       summary: 获取服务器
       tags:
       - server
@@ -1711,7 +1272,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Server'
+            $ref: '#/definitions/curd.ReplyData-types_Server'
       summary: 修改服务器
       tags:
       - server
@@ -1732,7 +1293,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Server'
+            $ref: '#/definitions/curd.ReplyData-types_Server'
       summary: 删除服务器
       tags:
       - server
@@ -1753,7 +1314,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Server'
+            $ref: '#/definitions/curd.ReplyData-types_Server'
       summary: 禁用服务器
       tags:
       - server
@@ -1774,7 +1335,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Server'
+            $ref: '#/definitions/curd.ReplyData-types_Server'
       summary: 启用服务器
       tags:
       - server
@@ -1795,7 +1356,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Server'
+            $ref: '#/definitions/curd.ReplyData-types_Server'
       summary: 启动服务端
       tags:
       - server
@@ -1816,7 +1377,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Server'
+            $ref: '#/definitions/curd.ReplyData-types_Server'
       summary: 停止服务端
       tags:
       - server
@@ -1831,14 +1392,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/api.ParamSearch'
+          $ref: '#/definitions/curd.ParamSearch'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-int64'
+            $ref: '#/definitions/curd.ReplyData-int64'
       summary: 查询服务器数量
       tags:
       - server
@@ -1860,7 +1421,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-types_Server'
+            $ref: '#/definitions/curd.ReplyData-types_Server'
       summary: 创建服务器
       tags:
       - server
@@ -1892,7 +1453,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyData-int64'
+            $ref: '#/definitions/curd.ReplyData-int64'
       summary: 导入服务端
       tags:
       - product
@@ -1914,7 +1475,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-types_Server'
+            $ref: '#/definitions/curd.ReplyList-types_Server'
       summary: 查询服务器
       tags:
       - server
@@ -1929,14 +1490,14 @@ paths:
         name: search
         required: true
         schema:
-          $ref: '#/definitions/api.ParamSearch'
+          $ref: '#/definitions/curd.ParamSearch'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ReplyList-types_Server'
+            $ref: '#/definitions/curd.ReplyList-types_Server'
       summary: 查询服务器
       tags:
       - server

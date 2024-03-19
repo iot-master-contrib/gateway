@@ -10,10 +10,10 @@ import (
 // @Schemes
 // @Description 查询设备
 // @Tags device
-// @Param search body ParamSearch true "查询参数"
+// @Param search body curd.ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[types.Device] 返回设备信息
+// @Success 200 {object} curd.ReplyList[types.Device] 返回设备信息
 // @Router /device/search [post]
 func noopDeviceSearch() {}
 
@@ -24,7 +24,7 @@ func noopDeviceSearch() {}
 // @Param id path int true "设备ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Device] 返回设备信息
+// @Success 200 {object} curd.ReplyData[types.Device] 返回设备信息
 // @Router /device/{id} [get]
 func noopDeviceGet() {}
 
@@ -36,7 +36,7 @@ func noopDeviceGet() {}
 // @Param device body types.Device true "设备信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Device] 返回设备信息
+// @Success 200 {object} curd.ReplyData[types.Device] 返回设备信息
 // @Router /device/{id} [post]
 func noopDeviceUpdate() {}
 

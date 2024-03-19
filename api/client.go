@@ -15,10 +15,10 @@ import (
 // @Schemes
 // @Description 查询客户端数量
 // @Tags client
-// @Param search body ParamSearch true "查询参数"
+// @Param search body curd.ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[int64] 返回客户端数量
+// @Success 200 {object} curd.ReplyData[int64] 返回客户端数量
 // @Router /client/count [post]
 func noopClientCount() {}
 
@@ -26,10 +26,10 @@ func noopClientCount() {}
 // @Schemes
 // @Description 查询客户端
 // @Tags client
-// @Param search body ParamSearch true "查询参数"
+// @Param search body curd.ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyList[types.Client] 返回客户端信息
 // @Router /client/search [post]
 func noopClientSearch() {}
 
@@ -37,10 +37,10 @@ func noopClientSearch() {}
 // @Schemes
 // @Description 查询客户端
 // @Tags client
-// @Param search query ParamList true "查询参数"
+// @Param search query curd.ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyList[types.Client] 返回客户端信息
 // @Router /client/list [get]
 func noopClientList() {}
 
@@ -51,7 +51,7 @@ func noopClientList() {}
 // @Param search body types.Client true "客户端信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyData[types.Client] 返回客户端信息
 // @Router /client/create [post]
 func noopClientCreate() {}
 
@@ -63,7 +63,7 @@ func noopClientCreate() {}
 // @Param client body types.Client true "客户端信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id} [post]
 func noopClientUpdate() {}
 
@@ -74,7 +74,7 @@ func noopClientUpdate() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id} [get]
 func noopClientGet() {}
 
@@ -85,7 +85,7 @@ func noopClientGet() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id}/delete [get]
 func noopClientDelete() {}
 
@@ -96,7 +96,7 @@ func noopClientDelete() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id}/enable [get]
 func noopClientEnable() {}
 
@@ -107,7 +107,7 @@ func noopClientEnable() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id}/disable [get]
 func noopClientDisable() {}
 
@@ -118,7 +118,7 @@ func noopClientDisable() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id}/start [get]
 func noopClientStart() {}
 
@@ -129,7 +129,7 @@ func noopClientStart() {}
 // @Param id path int true "客户端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Client] 返回客户端信息
+// @Success 200 {object} curd.ReplyData[types.Client] 返回客户端信息
 // @Router /client/{id}/stop [get]
 func noopClientStop() {}
 
@@ -149,7 +149,7 @@ func noopClientExport() {}
 // @Param file formData file true "压缩包"
 // @Accept mpfd
 // @Produce json
-// @Success 200 {object} ReplyData[int64] 返回客户端数量
+// @Success 200 {object} curd.ReplyData[int64] 返回客户端数量
 // @Router /client/import [post]
 func noopClientImport() {}
 

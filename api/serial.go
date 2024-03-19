@@ -16,10 +16,10 @@ import (
 // @Schemes
 // @Description 查询串口数量
 // @Tags serial
-// @Param search body ParamSearch true "查询参数"
+// @Param search body curd.ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[int64] 返回串口数量
+// @Success 200 {object} curd.ReplyData[int64] 返回串口数量
 // @Router /serial/count [post]
 func noopSerialCount() {}
 
@@ -27,10 +27,10 @@ func noopSerialCount() {}
 // @Schemes
 // @Description 查询串口
 // @Tags serial
-// @Param search body ParamSearch true "查询参数"
+// @Param search body curd.ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyList[types.Serial] 返回串口信息
 // @Router /serial/search [post]
 func noopSerialSearch() {}
 
@@ -38,10 +38,10 @@ func noopSerialSearch() {}
 // @Schemes
 // @Description 查询串口
 // @Tags serial
-// @Param search query ParamList true "查询参数"
+// @Param search query curd.ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyList[types.Serial] 返回串口信息
 // @Router /serial/list [get]
 func noopSerialList() {}
 
@@ -52,7 +52,7 @@ func noopSerialList() {}
 // @Param search body types.Serial true "串口信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyData[types.Serial] 返回串口信息
 // @Router /serial/create [post]
 func noopSerialCreate() {}
 
@@ -64,7 +64,7 @@ func noopSerialCreate() {}
 // @Param serial body types.Serial true "串口信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id} [post]
 func noopSerialUpdate() {}
 
@@ -75,7 +75,7 @@ func noopSerialUpdate() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id} [get]
 func noopSerialGet() {}
 
@@ -86,7 +86,7 @@ func noopSerialGet() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id}/delete [get]
 func noopSerialDelete() {}
 
@@ -97,7 +97,7 @@ func noopSerialDelete() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id}/enable [get]
 func noopSerialEnable() {}
 
@@ -108,7 +108,7 @@ func noopSerialEnable() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id}/disable [get]
 func noopSerialDisable() {}
 
@@ -119,7 +119,7 @@ func noopSerialDisable() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id}/start [get]
 func noopSerialStart() {}
 
@@ -130,7 +130,7 @@ func noopSerialStart() {}
 // @Param id path int true "串口ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Serial] 返回串口信息
+// @Success 200 {object} curd.ReplyData[types.Serial] 返回串口信息
 // @Router /serial/{id}/stop [get]
 func noopSerialStop() {}
 
@@ -150,7 +150,7 @@ func noopSerialExport() {}
 // @Param file formData file true "压缩包"
 // @Accept mpfd
 // @Produce json
-// @Success 200 {object} ReplyData[int64] 返回串口数量
+// @Success 200 {object} curd.ReplyData[int64] 返回串口数量
 // @Router /serial/import [post]
 func noopSerialImport() {}
 
@@ -159,7 +159,7 @@ func noopSerialImport() {}
 // @Description 串口列表
 // @Tags serial
 // @Produce json
-// @Success 200 {object} ReplyData[string] 返回串口列表
+// @Success 200 {object} curd.ReplyData[string] 返回串口列表
 // @Router /serial/ports [get]
 func noopSerialPorts() {}
 

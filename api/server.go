@@ -15,10 +15,10 @@ import (
 // @Schemes
 // @Description 查询服务器数量
 // @Tags server
-// @Param search body ParamSearch true "查询参数"
+// @Param search body curd.ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[int64] 返回服务器数量
+// @Success 200 {object} curd.ReplyData[int64] 返回服务器数量
 // @Router /server/count [post]
 func noopServerCount() {}
 
@@ -26,10 +26,10 @@ func noopServerCount() {}
 // @Schemes
 // @Description 查询服务器
 // @Tags server
-// @Param search body ParamSearch true "查询参数"
+// @Param search body curd.ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[types.Server] 返回服务器信息
+// @Success 200 {object} curd.ReplyList[types.Server] 返回服务器信息
 // @Router /server/search [post]
 func noopServerSearch() {}
 
@@ -37,10 +37,10 @@ func noopServerSearch() {}
 // @Schemes
 // @Description 查询服务器
 // @Tags server
-// @Param search query ParamList true "查询参数"
+// @Param search query curd.ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[types.Server] 返回服务器信息
+// @Success 200 {object} curd.ReplyList[types.Server] 返回服务器信息
 // @Router /server/list [get]
 func noopServerList() {}
 
@@ -51,7 +51,7 @@ func noopServerList() {}
 // @Param search body types.Server true "服务器信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
+// @Success 200 {object} curd.ReplyData[types.Server] 返回服务器信息
 // @Router /server/create [post]
 func noopServerCreate() {}
 
@@ -63,7 +63,7 @@ func noopServerCreate() {}
 // @Param server body types.Server true "服务器信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
+// @Success 200 {object} curd.ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id} [post]
 func noopServerUpdate() {}
 
@@ -74,7 +74,7 @@ func noopServerUpdate() {}
 // @Param id path int true "服务器ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
+// @Success 200 {object} curd.ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id} [get]
 func noopServerGet() {}
 
@@ -85,7 +85,7 @@ func noopServerGet() {}
 // @Param id path int true "服务器ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
+// @Success 200 {object} curd.ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id}/delete [get]
 func noopServerDelete() {}
 
@@ -96,7 +96,7 @@ func noopServerDelete() {}
 // @Param id path int true "服务器ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
+// @Success 200 {object} curd.ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id}/enable [get]
 func noopServerEnable() {}
 
@@ -107,7 +107,7 @@ func noopServerEnable() {}
 // @Param id path int true "服务器ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Server] 返回服务器信息
+// @Success 200 {object} curd.ReplyData[types.Server] 返回服务器信息
 // @Router /server/{id}/disable [get]
 func noopServerDisable() {}
 
@@ -118,7 +118,7 @@ func noopServerDisable() {}
 // @Param id path int true "服务端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Server] 返回服务端信息
+// @Success 200 {object} curd.ReplyData[types.Server] 返回服务端信息
 // @Router /server/{id}/start [get]
 func noopServerStart() {}
 
@@ -129,7 +129,7 @@ func noopServerStart() {}
 // @Param id path int true "服务端ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Server] 返回服务端信息
+// @Success 200 {object} curd.ReplyData[types.Server] 返回服务端信息
 // @Router /server/{id}/stop [get]
 func noopServerStop() {}
 
@@ -149,7 +149,7 @@ func noopServerExport() {}
 // @Param file formData file true "压缩包"
 // @Accept mpfd
 // @Produce json
-// @Success 200 {object} ReplyData[int64] 返回服务端数量
+// @Success 200 {object} curd.ReplyData[int64] 返回服务端数量
 // @Router /server/import [post]
 func noopServerImport() {}
 

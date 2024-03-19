@@ -12,10 +12,10 @@ import (
 // @Schemes
 // @Description 查询连接数量
 // @Tags link
-// @Param search body ParamSearch true "查询参数"
+// @Param search body curd.ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[int64] 返回连接数量
+// @Success 200 {object} curd.ReplyData[int64] 返回连接数量
 // @Router /link/count [post]
 func noopLinkCount() {}
 
@@ -23,10 +23,10 @@ func noopLinkCount() {}
 // @Schemes
 // @Description 查询连接
 // @Tags link
-// @Param search body ParamSearch true "查询参数"
+// @Param search body curd.ParamSearch true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[types.Link] 返回连接信息
+// @Success 200 {object} curd.ReplyList[types.Link] 返回连接信息
 // @Router /link/search [post]
 func noopLinkSearch() {}
 
@@ -34,10 +34,10 @@ func noopLinkSearch() {}
 // @Schemes
 // @Description 查询连接
 // @Tags link
-// @Param search query ParamList true "查询参数"
+// @Param search query curd.ParamList true "查询参数"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyList[types.Link] 返回连接信息
+// @Success 200 {object} curd.ReplyList[types.Link] 返回连接信息
 // @Router /link/list [get]
 func noopLinkList() {}
 
@@ -49,7 +49,7 @@ func noopLinkList() {}
 // @Param link body types.Link true "连接信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Link] 返回连接信息
+// @Success 200 {object} curd.ReplyData[types.Link] 返回连接信息
 // @Router /link/{id} [post]
 func noopLinkUpdate() {}
 
@@ -60,7 +60,7 @@ func noopLinkUpdate() {}
 // @Param id path int true "连接ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Link] 返回连接信息
+// @Success 200 {object} curd.ReplyData[types.Link] 返回连接信息
 // @Router /link/{id} [get]
 func noopLinkGet() {}
 
@@ -71,7 +71,7 @@ func noopLinkGet() {}
 // @Param id path int true "连接ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Link] 返回连接信息
+// @Success 200 {object} curd.ReplyData[types.Link] 返回连接信息
 // @Router /link/{id}/delete [get]
 func noopLinkDelete() {}
 
@@ -82,7 +82,7 @@ func noopLinkDelete() {}
 // @Param id path int true "连接ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Link] 返回连接信息
+// @Success 200 {object} curd.ReplyData[types.Link] 返回连接信息
 // @Router /link/{id}/enable [get]
 func noopLinkEnable() {}
 
@@ -93,7 +93,7 @@ func noopLinkEnable() {}
 // @Param id path int true "连接ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Link] 返回连接信息
+// @Success 200 {object} curd.ReplyData[types.Link] 返回连接信息
 // @Router /link/{id}/disable [get]
 func noopLinkDisable() {}
 
@@ -104,7 +104,7 @@ func noopLinkDisable() {}
 // @Param id path int true "连接ID"
 // @Accept json
 // @Produce json
-// @Success 200 {object} ReplyData[types.Link] 返回连接信息
+// @Success 200 {object} curd.ReplyData[types.Link] 返回连接信息
 // @Router /link/{id}/stop [get]
 func noopLinkStop() {}
 
@@ -124,7 +124,7 @@ func noopLinkExport() {}
 // @Param file formData file true "压缩包"
 // @Accept mpfd
 // @Produce json
-// @Success 200 {object} ReplyData[int64] 返回连接数量
+// @Success 200 {object} curd.ReplyData[int64] 返回连接数量
 // @Router /link/import [post]
 func noopLinkImport() {}
 

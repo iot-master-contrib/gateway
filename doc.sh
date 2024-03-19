@@ -1,1 +1,1 @@
-swag init --instanceName gateway
+swag init --pd --instanceName gateway
