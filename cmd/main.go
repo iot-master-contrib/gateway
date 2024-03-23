@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/iot-master-contrib/gateway"
 	"github.com/iot-master-contrib/influxdb"
+	_ "github.com/iot-master-contrib/webui"
 	master "github.com/zgwit/iot-master/v4"
 	"github.com/zgwit/iot-master/v4/pkg/log"
 	"github.com/zgwit/iot-master/v4/web"
