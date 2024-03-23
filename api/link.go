@@ -132,7 +132,7 @@ func linkRouter(app *gin.RouterGroup) {
 
 	app.POST("/count", curd.ApiCount[types.Link]())
 	app.POST("/search", curd.ApiSearchWithHook[types.Link](
-		[]*curd.Join{{"server", "server_id", "id", "name", "server"}},
+		[]*curd.With{{"server", "server_id", "id", "name", "server"}},
 		func(links []*types.Link) error {
 			for k, link := range links {
 				c := internal.GetLink(link.Id)

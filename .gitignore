@@ -60,3 +60,4 @@ Thumbs.db
 /*.yaml
 /gateway
 /package-lock.json
+/main
