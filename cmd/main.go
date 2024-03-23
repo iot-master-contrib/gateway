@@ -6,6 +6,7 @@ import (
 	_ "github.com/iot-master-contrib/webui"
 	master "github.com/zgwit/iot-master/v4"
 	"github.com/zgwit/iot-master/v4/pkg/log"
+	"github.com/zgwit/iot-master/v4/plugin"
 	"github.com/zgwit/iot-master/v4/web"
 )
 
@@ -20,18 +21,21 @@ func main() {
 		log.Fatal(err)
 	}
 
-	plugin := gateway.Manifest()
-	err = plugin.Startup()
+	plg := gateway.Manifest()
+	err = plg.Startup()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	//注册插件
+	plugin.Register(plg)
 
 	err = web.Serve()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = plugin.Shutdown()
+	err = plg.Shutdown()
 	if err != nil {
 		log.Fatal(err)
 	}
