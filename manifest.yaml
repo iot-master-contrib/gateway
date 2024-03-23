@@ -1,0 +1,54 @@
+id: gateway
+version: 1.0
+name: 软网关
+menus:
+    admin:
+        name: 软网关
+        items:
+            -   name: 客户端
+                url: /$gateway/client
+            -   name: 串口
+                url: /$gateway/serial
+            -   name: TCP服务端
+                url: /$gateway/server
+            -   name: TCP连接
+                url: /$gateway/link
+
+pages:
+    - target: 'device'
+      select:
+          - modbus
+      name: Modbus站号
+      url: /$gateway/modbus/station
+
+    - target: 'device-edit'
+      select:
+          - modbus
+      name: Modbus站号
+      url: /$gateway/modbus/station/edit
+
+    - target: 'product'
+      select:
+          - modbus
+      name: Modbus映射
+      url: /$gateway/modbus/mapper
+
+    - target: 'product-edit'
+      select:
+          - modbus
+      name: Modbus映射
+      url: /$gateway/modbus/mapper/edit
+
+    - target: 'tunnel'
+      select:
+          - modbus
+      name: Modbus参数
+      url: /$gateway/modbus/options
+
+    - target: 'tunnel-edit'
+      select:
+          - modbus
+      name: Modbus参数
+      url: /$gateway/modbus/options/edit
+
+
