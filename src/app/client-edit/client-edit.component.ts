@@ -26,15 +26,15 @@ export class ClientEditComponent implements OnInit {
     @ViewChild('form') form!: SmartFormComponent
 
     fields: SmartFormItem[] = [
-        {key: "id", label: "ID", type: "label", min: 2, max: 30, placeholder: "选填"},
-        {key: "name", label: "名称", type: "label", required: true, default: '新客户端'},
+        {key: "id", label: "ID", type: "text", min: 2, max: 30, placeholder: "选填"},
+        {key: "name", label: "名称", type: "text", required: true, default: '新客户端'},
         {
             key: "net", label: "网络", type: "select", default: 'tcp', options: [
                 {label: 'TCP', value: 'tcp'},
                 {label: 'UDP', value: 'udp'},
             ]
         },
-        {key: "addr", label: "地址", type: "label"},
+        {key: "addr", label: "地址", type: "text"},
         {key: "port", label: "端口", type: "number", min: 1, max: 65535},
         {key: "poller_period", label: "采集周期", type: "number", min: 0},
         {key: "poller_interval", label: "采集间隔", type: "number", min: 0},

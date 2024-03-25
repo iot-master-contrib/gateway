@@ -22,20 +22,21 @@ var _manifest string
 var manifest plugin.Manifest
 
 func Manifest() *plugin.Manifest {
-	manifest.Startup = Startup
-	manifest.Shutdown = Shutdown
 	return &manifest
 }
 
 func init() {
 	//前端静态文件
-	web.Static.Put("/$gateway", http.FS(wwwFiles), "www", "www/index.html")
+	web.Static.Put("/$gateway", http.FS(wwwFiles), "www", "index.html")
 
 	d := yaml.NewDecoder(strings.NewReader(_manifest))
 	err := d.Decode(&manifest)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	manifest.Startup = Startup
+	manifest.Shutdown = Shutdown
 }
 
 // @title 物联大师网关接口文档

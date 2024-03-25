@@ -6,7 +6,7 @@ require (
 	github.com/PaesslerAG/gval v1.2.2
 	github.com/gin-gonic/gin v1.9.1
 	github.com/iot-master-contrib/influxdb v1.0.10
-	github.com/iot-master-contrib/webui v1.0.5
+	github.com/iot-master-contrib/webui v1.0.6
 	github.com/swaggo/swag v1.16.3
 	github.com/zgwit/iot-master/v4 v4.0.17
 	go.bug.st/serial v1.6.2
